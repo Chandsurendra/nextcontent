@@ -1,15 +1,15 @@
-"use client";
-import { useState, useEffect } from "react";
-import { useTheme } from "next-themes";
-import { Monitor, Moon, Sun } from "lucide-react";
-import { Button } from "@/app/components/ui/button";
+'use client';
+import { useState, useEffect } from 'react';
+import { useTheme } from 'next-themes';
+import { Monitor, Moon, Sun } from 'lucide-react';
+import { Button } from './ui/button';
 const ThemeSwitcher = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const options = [
-    { icon: <Sun  />, text: "light" },
-    { icon: <Moon />, text: "dark" },
-    { icon: <Monitor />, text: "system" },
+    { icon: <Sun />, text: 'light' },
+    { icon: <Moon />, text: 'dark' },
+    { icon: <Monitor />, text: 'system' },
   ];
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const ThemeSwitcher = () => {
           title={opt.text}
           key={opt.text}
           onClick={() => setTheme(opt.text)}
-          className={` bg-background m-1 p-2  text-secondary-foreground rounded-full duration-500 ${theme === opt.text && 'text-primary'} `}
+          className={`m-1 rounded-full bg-background p-2 text-secondary-foreground duration-500 ${theme === opt.text && 'text-primary'} `}
         >
           {opt.icon}
         </Button>
