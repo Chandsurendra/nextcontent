@@ -17,7 +17,6 @@ const page = async () => {
             imgh={card.imgh}
             link={card.slug}
             details={card.details}
-            pdf={card.pdf}
           />
         );
       })}
