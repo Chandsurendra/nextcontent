@@ -3,7 +3,18 @@ import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import { Monitor, Moon, Sun } from 'lucide-react';
 import { Button } from './ui/button';
-const ThemeSwitcher = () => {
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  DropdownMenuGroup,
+} from '@/app/components/ui/dropdown-menu';
+
+const Theme = () => {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
   const options = [
@@ -21,19 +32,30 @@ const ThemeSwitcher = () => {
   }
 
   return (
-    <div>
-      {options?.map((opt) => (
-        <Button
-          type="button"
-          title={opt.text}
-          key={opt.text}
-          onClick={() => setTheme(opt.text)}
-          className={`m-1 rounded-full bg-background p-2 text-secondary-foreground duration-500 ${theme === opt.text && 'text-primary'} `}
-        >
-          {opt.icon}
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button size="icon" varient="outline">
+          <Sun />
         </Button>
-      ))}
-    </div>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="w-32">
+        <DropdownMenuLabel>Theme</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuGroup>
+          {options?.map((opt) => (
+            <div key={opt.text}>
+              <DropdownMenuItem
+                className={`${theme === opt.text && 'text-primary'}`}
+                onClick={() => setTheme(opt.text)}
+              >
+                {opt.icon}
+                <p className="pl-2">{opt.text}</p>
+              </DropdownMenuItem>
+            </div>
+          ))}
+        </DropdownMenuGroup>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
-export default ThemeSwitcher;
+export default Theme;

@@ -18,6 +18,8 @@ export async function fetchPostcards() {
         id: item.sys.id,
         title: item.fields.title,
         pdfUrl: item.fields.pdf.fields.file.url,
+        image: item.fields.image.fields.file.url,
+        details: item.fields.unit,
     }));
 }
 
