@@ -1,6 +1,16 @@
-import { fetchPostcards } from '@/app/lib/Contentful';
-import PoCard from '../components/Card';
+import PoCard from '@/app/components/Card';
+import client from '@/app/lib/Contentful';
 
+export async function fetchPostcards() {
+  const response = await client.getEntries({ content_type: 'postcard' });
+  return response.items.map((item) => ({
+      id: item.sys.id,
+      title: item.fields.title,
+      pdfUrl: item.fields.pdf.fields.file.url,
+      image: item.fields.image.fields.file.url,
+      details: item.fields.unit,
+  }));
+}
 export const revalidate = 60; // Revalidate the data every 60 seconds
 
 export default async function Page() {
