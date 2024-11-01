@@ -7,9 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 function Postcard({ img, imgw, imgh, link, details, title }) {
   return (
     <>
-      
-
-        <Card>
+        <Card className='rounded-xl border bg-card text-card-foreground shadow'>
           <CardHeader>
             <Image
               loading="lazy"

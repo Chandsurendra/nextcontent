@@ -1,284 +1,182 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/MNfulgzY4Nm
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
-import Link from 'next/link';
-import {
-  NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuTrigger,
-  NavigationMenuContent,
-  NavigationMenuLink,
-} from '@/app/components/ui/navigation-menu';
-import { Sheet, SheetTrigger, SheetContent } from '@/app/components/ui/sheet';
-import { Button } from '@/app/components/ui/button';
-import Image from 'next/image';
-import Theme from './Theme';
-import { Menu } from 'lucide-react';
+"use client"
 
-export default function Component() {
+import * as React from "react"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { Menu, X } from "lucide-react"
+
+import { Button } from "@/app/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/app/components/ui/dropdown-menu"
+import { Sheet, SheetContent, SheetTrigger } from "@/app/components/ui/sheet"
+
+const menuItems = [
+  { title: "Home", href: "/" },
+  {
+    title: "2ndyear",
+    href: "/bbs2nd",
+    submenu: [
+      { title: "Product 1", href: "/bbs2nd" },
+      { title: "Product 2", href: "/products/product-2" },
+      { title: "Product 3", href: "/products/product-3" },
+    ],
+  },
+  {
+    title: "Bbs3rdyear",
+    href: "/bbs3rd",
+    submenu: [
+      { title: "Service 1", href: "/bbs3rd" },
+      { title: "Service 2", href: "/services/service-2" },
+    ],
+  },
+  { title: "About", href: "/about" },
+  { title: "Contact", href: "/contact" },
+]
+
+export default function Navbar() {
+  const [isOpen, setIsOpen] = React.useState(false)
+  const pathname = usePathname()
+
+  const isActive = (href) => {
+    return pathname === href || pathname.startsWith(href + '/')
+  }
+
   return (
-    <header className="bg-background px-4 py-3 shadow-sm md:px-6 lg:px-8">
-      <div className="container mx-auto flex items-center justify-between">
-        <Link href="/" className="flex items-center" prefetch={false}>
-          <Image alt="logo" src="/logo.jpeg" width={64} height={64} />
-          <span className="ml-2 text-lg font-semibold">Best Education</span>
-        </Link>
-        <NavigationMenu className="hidden md:flex">
-          <NavigationMenuList>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>
-                <Link
-                  href="/"
-                  className="px-4 py-2 hover:bg-accent hover:text-accent-foreground"
-                  prefetch={false}
-                >
-                  About
-                </Link>
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <div className="grid w-[400px] p-2">
-                  <NavigationMenuLink asChild>
-                    <Link
-                      href="/"
-                      className="group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                      prefetch={false}
-                    >
-                      <div className="text-sm font-medium leading-none group-hover:underline">
-                        Meet the Team
-                      </div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        Learn more about the people behind Acme Inc.
-                      </div>
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link
-                      href="/"
-                      className="group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                      prefetch={false}
-                    >
-                      <div className="text-sm font-medium leading-none group-hover:underline">
-                        Company History
-                      </div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        Explore the journey of Acme Inc.
-                      </div>
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link
-                      href="/"
-                      className="group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                      prefetch={false}
-                    >
-                      <div className="text-sm font-medium leading-none group-hover:underline">
-                        Our Mission
-                      </div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        Discover the purpose that drives Acme Inc.
-                      </div>
-                    </Link>
-                  </NavigationMenuLink>
-                </div>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>
-                <Link
-                  href="/"
-                  className="px-4 py-2 hover:bg-accent hover:text-accent-foreground"
-                  prefetch={false}
-                >
-                  Products
-                </Link>
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <div className="grid w-[400px] p-2">
-                  <NavigationMenuLink asChild>
-                    <Link
-                      href="/"
-                      className="group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                      prefetch={false}
-                    >
-                      <div className="text-sm font-medium leading-none group-hover:underline">
-                        Widgets
-                      </div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        Our flagship product line of high-quality widgets.
-                      </div>
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link
-                      href="/"
-                      className="group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                      prefetch={false}
-                    >
-                      <div className="text-sm font-medium leading-none group-hover:underline">
-                        Gadgets
-                      </div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        Innovative gadgets to enhance your daily life.
-                      </div>
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link
-                      href="/"
-                      className="group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                      prefetch={false}
-                    >
-                      <div className="text-sm font-medium leading-none group-hover:underline">
-                        Accessories
-                      </div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        Enhance your experience with our carefully curated
-                        accessories.
-                      </div>
-                    </Link>
-                  </NavigationMenuLink>
-                </div>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-            <NavigationMenuLink asChild>
-              <Link
-                href="/"
-                className="px-4 py-2 hover:bg-accent hover:text-accent-foreground"
-                prefetch={false}
-              >
-                Pricing
+    <nav className=" bg-backgrond backdrop-blur shadow fixed top-0 left-0 right-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          <div className="flex">
+            <div className="flex-shrink-0 flex items-center">
+              <Link href="/" className="text-2xl font-bold text-primary">
+                Logo
               </Link>
-            </NavigationMenuLink>
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>
-                <Link
-                  href="/"
-                  className="px-4 py-2 hover:bg-accent hover:text-accent-foreground"
-                  prefetch={false}
-                >
-                  Resources
-                </Link>
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <div className="grid w-[550px] grid-cols-2 p-2">
-                  <NavigationMenuLink asChild>
+            </div>
+            <div className="hidden sm:ml-6 sm:flex sm:space-x-4">
+              {menuItems.map((item) => (
+                <div key={item.title} className="relative">
+                  {item.submenu ? (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          className={`px-3 py-2 rounded-md text-sm font-medium ${
+                            isActive(item.href)
+                              ? "text-blue-600 bg-blue-50"
+                              : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                          }`}
+                        >
+                          {item.title}
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent>
+                        {item.submenu.map((subItem) => (
+                          <DropdownMenuItem key={subItem.title} asChild>
+                            <Link
+                              href={subItem.href}
+                              className={`block px-4 py-2 text-sm ${
+                                isActive(subItem.href)
+                                  ? "text-blue-600 bg-blue-50"
+                                  : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                              }`}
+                            >
+                              {subItem.title}
+                            </Link>
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  ) : (
                     <Link
-                      href="/"
-                      className="group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                      prefetch={false}
+                      href={item.href}
+                      className={`inline-flex items-center px-3 py-2 rounded-md text-sm font-medium ${
+                        isActive(item.href)
+                          ? "text-blue-600 bg-blue-50"
+                          : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                      }`}
                     >
-                      <div className="text-sm font-medium leading-none group-hover:underline">
-                        Blog
-                      </div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        Read our latest articles and insights.
-                      </div>
+                      {item.title}
                     </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link
-                      href="/"
-                      className="group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                      prefetch={false}
-                    >
-                      <div className="text-sm font-medium leading-none group-hover:underline">
-                        Documentation
-                      </div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        Learn how to use our products and services.
-                      </div>
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link
-                      href="/"
-                      className="group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                      prefetch={false}
-                    >
-                      <div className="text-sm font-medium leading-none group-hover:underline">
-                        Support
-                      </div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        Get help and assistance with our products.
-                      </div>
-                    </Link>
-                  </NavigationMenuLink>
-                  <NavigationMenuLink asChild>
-                    <Link
-                      href="/"
-                      className="group grid h-auto w-full items-center justify-start gap-1 rounded-md bg-background p-4 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
-                      prefetch={false}
-                    >
-                      <div className="text-sm font-medium leading-none group-hover:underline">
-                        Community
-                      </div>
-                      <div className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                        Connect with other users and share your experiences.
-                      </div>
-                    </Link>
-                  </NavigationMenuLink>
+                  )}
                 </div>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          <NavigationMenuItem>
-            <Theme />
-          </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
-        <div className="md:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="outline" size="icon">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Toggle navigation menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px]">
-              <div className="flex flex-col items-start space-y-4 p-6">
-                <Link href="/" className="flex items-center" prefetch={false}>
-                <Image alt="logo" src="/logo.jpeg" width={64} height={64} />
-                  <span className="ml-2 text-lg font-semibold">Best Education</span>
-                </Link>
-                <nav className="flex flex-col space-y-2">
-                  <Link
-                    href="/"
-                    className="text-lg font-medium hover:underline"
-                    prefetch={false}
-                  >
-                    Home
-                  </Link>
-                  <Link
-                    href="/bbs2nd "
-                    className="text-lg font-medium hover:underline"
-                    prefetch={false}
-                  >
-                    BBS2ndyear
-                  </Link>
-                  <Link
-                    href="/"
-                    className="text-lg font-medium hover:underline"
-                    prefetch={false}
-                  >
-                    Pricing
-                  </Link>
-                  <Link
-                    href="/"
-                    className="text-lg font-medium hover:underline"
-                    prefetch={false}
-                  >
-                    Resources
-                  </Link>
-                  <Theme />
+              ))}
+            </div>
+          </div>
+          <div className="-mr-2 flex items-center sm:hidden backdrop-blur opacity-80">
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+              <SheetTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                >
+                  <span className="sr-only">Open main menu</span>
+                  {isOpen ? (
+                    <X className="block h-6 w-6" aria-hidden="true" />
+                  ) : (
+                    <Menu className="block h-6 w-6" aria-hidden="true" />
+                  )}
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] sm:hidden ">
+                <nav className="mt-5">
+                  {menuItems.map((item) => (
+                    <div key={item.title} className="px-2 pt-2 pb-3 space-y-1">
+                      {item.submenu ? (
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              className={`w-full justify-start ${
+                                isActive(item.href)
+                                  ? "text-blue-600 bg-blue-50"
+                                  : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                              }`}
+                            >
+                              {item.title}
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent>
+                            {item.submenu.map((subItem) => (
+                              <DropdownMenuItem key={subItem.title} asChild>
+                                <Link
+                                  href={subItem.href}
+                                  className={`block px-4 py-2 text-sm ${
+                                    isActive(subItem.href)
+                                      ? "text-blue-600 bg-blue-50"
+                                      : "text-gray-700 hover:bg-gray-100 hover:text-gray-900"
+                                  }`}
+                                  onClick={() => setIsOpen(false)}
+                                >
+                                  {subItem.title}
+                                </Link>
+                              </DropdownMenuItem>
+                            ))}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      ) : (
+                        <Link
+                          href={item.href}
+                          className={`block px-3 py-2 rounded-md text-base font-medium ${
+                            isActive(item.href)
+                              ? "text-blue-600 bg-blue-50"
+                              : "text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+                          }`}
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {item.title}
+                        </Link>
+                      )}
+                    </div>
+                  ))}
                 </nav>
-              </div>
-            </SheetContent>
-          </Sheet>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
       </div>
-    </header>
-  );
+    </nav>
+  )
 }
-
